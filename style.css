@@ -1,0 +1,48 @@
+body{
+    background: #4e198f;
+    color:white;
+    font-family: 'Roboto', sans-serif;
+}
+
+.result{
+    padding-top: 10px;
+    font-weight: 500;
+}
+
+.vertical-center {
+    display: grid;
+    margin-top:25vh;
+    justify-items: center;
+    align-items: center;
+    background: #6e23c8;
+    padding: 15px;
+    width: 500px;
+    border-radius: 25px
+  }
+
+  #inputBox{
+      width: 300px;
+  }
+
+  .executeButton,#inputBox{
+      margin-top: 15px;
+  }
+
+  #credit{
+      font-size: 15px;
+      font-weight: 500;
+  }
+  
+  #fire{
+      color:yellow;
+  }
+
+  .git{
+    left: 252px;
+    position: relative;
+  }
+
+  .pretty_font{
+    font-size: 13px;
+    font-weight: 500;
+  }

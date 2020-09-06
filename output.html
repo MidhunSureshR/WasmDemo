@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>WebAssembly Demo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet"> 
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Github Button -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- Font Awesome-->
+    <script src="https://kit.fontawesome.com/d2f3202e13.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="vertical-center">
+            <!-- <div class="git">
+                <a class="github-button" href="https://github.com/MidhunSureshR/WasmDemo/fork" data-size="large" aria-label="Fork MidhunSureshR/WasmDemo on GitHub">Fork</a>
+            </div> -->
+            <div class="git">
+                <iframe src="https://ghbtns.com/github-btn.html?user=MidhunSureshR&repo=WasmDemo&type=watch&size=small" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+            </div>
+            <h1>WebAssembly Demo</h1>
+            <div id="credit">Made with <span id="fire">🔥</span> by RMidhunSuresh</div>
+            <div>
+                <input type="number" id="inputBox" value="1000">
+            </div>
+        
+            <button class="executeButton btn btn-light">Execute</button>
+        </div>
+    </div>
+    
+    <div id="resultContainer" class="text-center"></div>    
+    <script>
+    
+    const getInput = () => parseInt(document.querySelector("#inputBox").value);
+
+    const showResult = (js, wasm) => {
+        const container = document.querySelector("#resultContainer");
+        const _run = document.createElement("div");
+        _run.className = "result";
+
+        const _js_result = document.createElement("div");
+        _js_result.appendChild(document.createTextNode(`Javascript took ${js}ms to execute.`));
+        const _wasm_result = document.createElement("div"); 
+        _wasm_result.appendChild(document.createTextNode(`WebAssembly took ${wasm}ms to execute.`));
+
+        _run.appendChild(_js_result);
+        _run.appendChild(_wasm_result);
+        container.appendChild(_run);
+    }
+
+    document.querySelector('.executeButton')
+        .addEventListener('click', function () {
+            const input = getInput();
+            var result_wasm = Module.ccall(
+                'getPrime',	// name of C function 
+                'number',	// return type
+                ['number'],	// argument types
+                [input]	// arguments
+            );
+            console.log(`Time taken by WASM = ${result_wasm}`);
+
+            var result_js = getPrime(input);
+            console.log(`Time taken by JavaScript = ${result_js}`);
+
+            showResult(result_js, result_wasm);
+        });
+    </script>
+    <script async type="text/javascript" src="output.js"></script>
+    <script src="sieve.js"></script>
+</body>
+
+</html>
